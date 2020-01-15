@@ -1,0 +1,6 @@
+github上传流程：
+1.git init
+2.git add .
+3.git commit -m "项目日志"
+4.git remote add origin 自己仓库地址
+5.git push -u origin master
