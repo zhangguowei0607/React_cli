@@ -1,26 +1,24 @@
 const proxy = require("http-proxy-middleware");
 var Mock = require("mockjs");
 
-module.exports = function(app) {
-  app.get("/test", (req, res) => {
-    var data = Mock.mock({
-      "list|1-10": [
-        {
-          "id|+1": 1
-        }
-      ]
+module.exports = function (app) {
+    app.get("/test", (req, res) => {
+        var data = Mock.mock({
+            "list|1-10": [{
+                "id|+1": 1
+            }]
+        });
+        res.json(data);
     });
-    res.json(data);
-  });
 
-
-  app.use(
-    proxy("/apis", {
-      target: "https://cnodejs.org",
-      changeOrigin: true,
-      pathRewrite: {
-        "^/apis": ""
-      }
-    })
-  );
+    // https://api.juooo.com  /city/city/getSortedCityList?version=6.1.1&referer=2
+    app.use(
+        proxy("/apis", {
+            target: "https://api.juooo.com",
+            changeOrigin: true,
+            pathRewrite: {
+                "^/apis": ""
+            }
+        })
+    );
 };
